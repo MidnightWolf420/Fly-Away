@@ -11,7 +11,6 @@ browser.webRequest.onBeforeRequest.addListener(
             const parsedUrl = new URL(currentUrl);
             const params = new URLSearchParams(parsedUrl.search);
             if (params.get('no-redirect')) {
-                console.log("No redirect")
                 return {};
             } else {
                 let path = parsedUrl.pathname.split('/')[1];
