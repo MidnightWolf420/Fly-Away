@@ -1,19 +1,17 @@
 {
     "manifest_version": 3,
     "name": "Fly Away",
-    "version": "1.0",
+    "version": "1.0.2",
     "description": "Redirects you to Bluesky when you visit Twitter.",
     "homepage_url": "https://github.com/MidnightWolf420/Fly-Away",
     "permissions": [
       "webRequest",
       "webRequestBlocking",
-      "tabs",
-      "activeTab"
+      "tabs"
     ],
     "host_permissions": [
-      "*://*.twitter.com/*",
-      "*://*.x.com/*",
-      "*://bluesky.social/*"
+        "*://*.twitter.com/*",
+        "*://*.x.com/*"
     ],
     "background": {
       "scripts": ["background.js"]
