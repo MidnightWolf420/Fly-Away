@@ -15,8 +15,12 @@ browser.webRequest.onBeforeRequest.addListener(
                 return {};
             } else {
                 let path = parsedUrl.pathname.split('/')[1];
-                if(/https?:\/\/(x|twitter)\.com\/[a-zA-Z0-9-_]+$/i && !new RegExp(`(${pages.join("|")})`, "i").test(path)) {
-                    return { redirectUrl: `${targetURL}/search?q=${path}` };
+                if(/https?:\/\/(x|twitter)\.com\/[a-zA-Z0-9-_]+$/i && !pages.includes(path)) {
+                    if (path) {
+                        return { redirectUrl: `${targetURL}/search?q=${path}` };
+                    } else {
+                        return { redirectUrl: targetURL };
+                    }
                 } else if(/https?:\/\/(x|twitter)\.com\/search(\/)?\?q=/i) {
                     return { redirectUrl: `${targetURL}/search?q=${params.get('q')||""}` };
                 } else if(/https?:\/\/(x|twitter)\.com\/settings/i) {
