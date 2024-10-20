@@ -15,21 +15,34 @@ browser.webRequest.onBeforeRequest.addListener(
                 return {};
             } else {
                 let path = parsedUrl.pathname.split('/')[1];
-                if(/https?:\/\/(x|twitter)\.com\/[a-zA-Z0-9-_]+$/i && !pages.includes(path)) {
-                    if (path) {
-                        return { redirectUrl: `${targetURL}/search?q=${path}` };
-                    } else {
-                        return { redirectUrl: targetURL };
-                    }
-                } else if(/https?:\/\/(x|twitter)\.com\/search(\/)?\?q=/i) {
-                    return { redirectUrl: `${targetURL}/search?q=${params.get('q')||""}` };
-                } else if(/https?:\/\/(x|twitter)\.com\/settings/i) {
-                    return { redirectUrl: `${targetURL}/settings` };
-                } else if(/https?:\/\/(x|twitter)\.com\/messages/i) {
-                    return { redirectUrl: `${targetURL}/messages` };
-                } else if(/https?:\/\/(x|twitter)\.com\/notifications/i) {
-                    return { redirectUrl: `${targetURL}/notifications` };
-                } else return { redirectUrl: targetURL };
+                let targetCompleteURL = targetURL;
+                switch(path.toLowerCase()) {
+                    case "search":
+                        targetCompleteURL = `${targetURL}/search?q=${params.get('q')||""}`;
+                        break;
+                    case "explore":
+                        targetCompleteURL = targetURL;
+                        break;
+                    case "home":
+                        targetCompleteURL = targetURL;
+                        break;
+                    case "settings":
+                        targetCompleteURL = `${targetURL}/settings`;
+                        break;
+                    case "messages":
+                        targetCompleteURL = `${targetURL}/messages`;
+                        break;
+                    case "notifications":
+                        targetCompleteURL = `${targetURL}/notifications`;
+                        break;
+                    default:
+                        if (/^[a-zA-Z0-9-_]+$/.test(path)) {
+                            targetCompleteURL = `${targetURL}/search?q=${path}`;
+                        } else {
+                            targetCompleteURL = targetURL; // Default case if no match found
+                        }
+                }
+                return { redirectUrl: targetCompleteURL };
             }
         }
     }

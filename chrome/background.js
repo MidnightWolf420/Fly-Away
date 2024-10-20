@@ -8,22 +8,35 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     const params = new URLSearchParams(parsedUrl.search);
     if (!params.get('no-redirect')) {
         let path = parsedUrl.pathname.split('/')[1];
-        if(/https?:\/\/(x|twitter)\.com\/[a-zA-Z0-9-_]+$/i && !pages.includes(path)) {
-            if (path) {
-                chrome.tabs.update(tabId, { url: `${targetURL}/search?q=${path}` });
-            } else {
-                chrome.tabs.update(tabId, { url: targetURL });
-            }
-        } else if(/https?:\/\/(x|twitter)\.com\/search(\/)?\?q=/i) {
-            chrome.tabs.update(tabId, { url: `${targetURL}/search?q=${params.get('q')||""}` });
-        } else if(/https?:\/\/(x|twitter)\.com\/settings/i) {
-            chrome.tabs.update(tabId, { url: `${targetURL}/settings` });
-        } else if(/https?:\/\/(x|twitter)\.com\/messages/i) {
-            chrome.tabs.update(tabId, { url: `${targetURL}/messages` });
-        } else if(/https?:\/\/(x|twitter)\.com\/notifications/i) {
-            chrome.tabs.update(tabId, { url: `${targetURL}/notifications` });
-        } else chrome.tabs.update(tabId, { url: targetURL });
-        
+        let targetCompleteURL = targetURL;
+        switch(path.toLowerCase()) {
+            case "search":
+                targetCompleteURL = `${targetURL}/search?q=${params.get('q')||""}`;
+                break;
+            case "explore":
+                targetCompleteURL = targetURL;
+                break;
+            case "home":
+                targetCompleteURL = targetURL;
+                break;
+            case "settings":
+                targetCompleteURL = `${targetURL}/settings`;
+                break;
+            case "messages":
+                targetCompleteURL = `${targetURL}/messages`;
+                break;
+            case "notifications":
+                targetCompleteURL = `${targetURL}/notifications`;
+                break;
+            default:
+                if (/^[a-zA-Z0-9-_]+$/.test(path)) {
+                    targetCompleteURL = `${targetURL}/search?q=${path}`;
+                } else {
+                    targetCompleteURL = targetURL; // Default case if no match found
+                }
+        }
+        chrome.tabs.update(tabId, { url: targetCompleteURL });
+        return { redirectUrl: targetCompleteURL };
     }
   }
 });
