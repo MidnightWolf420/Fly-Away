@@ -16,3 +16,9 @@ Go To about:config
 In the box type xpinstall.signatures.required and set it to false
 
 https://github.com/user-attachments/assets/d5f67b33-13f9-4ad2-83ff-7f8d072be96a
+
+
+
+
+
+But if you want to stay on twitter just add ?no-redirect at the end of the url example: https://twitter.com/home?no-redirect=true
