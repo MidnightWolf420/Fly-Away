@@ -11,6 +11,7 @@ https://github.com/user-attachments/assets/c9ee80e1-d2a3-48be-a821-902448697d36
 
 
 **Firefox:** [Download](https://github.com/MidnightWolf420/Fly-Away/releases/tag/firefox) 
+
 Also now available here: https://addons.mozilla.org/firefox/addon/bluesky-fly-away
 
 Go To about:config
