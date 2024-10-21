@@ -5,8 +5,7 @@
     "description": "Redirects you to Bluesky when you visit Twitter.",
     "homepage_url": "https://github.com/MidnightWolf420/Fly-Away",
     "permissions": [
-        "tabs",
-        "activeTab"
+        "tabs"
     ],
     "background": {
         "service_worker": "background.js"
