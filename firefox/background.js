@@ -10,14 +10,15 @@ browser.webRequest.onBeforeRequest.addListener(
         if ((!details.originUrl || !twitterRegex.test(details.originUrl)) && (twitterRegex.test(currentUrl) || twitterSubdomainRegex.test(currentUrl))) {
             const parsedUrl = new URL(currentUrl);
             const params = new URLSearchParams(parsedUrl.search);
-            if (params.get('no-redirect')) {
+            let result = await browser.storage.local.get('redirect')
+            if ((params.get("no-redirect") && params.get("no-redirect").toLowerCase() == "true") || result.redirect == false) {
                 return {};
             } else {
-                let path = parsedUrl.pathname.split('/')[1];
+                let path = parsedUrl.pathname.split("/")[1];
                 let targetCompleteURL = targetURL;
                 switch(path.toLowerCase()) {
                     case "search":
-                        targetCompleteURL = `${targetURL}/search?q=${params.get('q')||""}`;
+                        targetCompleteURL = `${targetURL}/search?q=${params.get("q")||""}`;
                         break;
                     case "explore":
                         targetCompleteURL = targetURL;
@@ -49,3 +50,23 @@ browser.webRequest.onBeforeRequest.addListener(
   { urls: ["*://*/*"] },
   ["blocking"]
 );
+
+browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "getRedirect") {
+        browser.storage.local.get("redirect").then((result) => {
+            sendResponse({ redirect: result.redirect });
+        }).catch((error) => {
+            console.error("Error retrieving redirect state:", error);
+            sendResponse({ redirect: true });
+        });
+        return true;
+    } else if (request.action === "setRedirect") {
+        browser.storage.local.set({ redirect: request.redirect }).then(() => {
+            sendResponse({ success: true });
+        }).catch((error) => {
+            console.error("Error saving redirect state:", error);
+            sendResponse({ success: false });
+        });
+        return true;
+    }
+});
