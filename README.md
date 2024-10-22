@@ -58,6 +58,7 @@ This is an extension to redirect you to bluesky when you go on twitter
 <br />
 <br />
 <br />
+## Download And Install Manually
 **Chrome:** if you want to download it manually: [Download](https://github.com/MidnightWolf420/Fly-Away/releases)
 
 https://github.com/user-attachments/assets/c9ee80e1-d2a3-48be-a821-902448697d36
