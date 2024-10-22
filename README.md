@@ -6,13 +6,30 @@ This is an extension to redirect you to bluesky when you go on twitter
 ## How To Use
 **Chrome:** https://chromewebstore.google.com/detail/fly-away/egpklfdnnhcgdhnepdabdcecmfcmmhfd
 
-Or if you want to download it manually: [Download](https://github.com/MidnightWolf420/Fly-Away/releases/tag/chrome)
+**Firefox:** https://addons.mozilla.org/firefox/addon/bluesky-fly-away
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**Chrome:** if you want to download it manually: [Download](https://github.com/MidnightWolf420/Fly-Away/releases)
 
 https://github.com/user-attachments/assets/c9ee80e1-d2a3-48be-a821-902448697d36
 
-**Firefox:** https://addons.mozilla.org/firefox/addon/bluesky-fly-away
-
-Or if you want to download it manually: [Download](https://github.com/MidnightWolf420/Fly-Away/releases/tag/firefox) 
+**Firefox:** if you want to download it manually: [Download](https://github.com/MidnightWolf420/Fly-Away/releases) 
 
 Go To about:config
 In the box type xpinstall.signatures.required and set it to false
